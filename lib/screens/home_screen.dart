@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../config/dependency_injector.dart';
 import '../services/secure_storage_service.dart';
+import 'post_list_screen.dart';
 import 'user_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -228,7 +230,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const UserListScreen(),
+                                builder: (context) => UserListScreen(
+                                  repository: DependencyProvider.of(context)
+                                      .userRepository,
+                                ),
                               ),
                             );
                           },
@@ -239,6 +244,25 @@ class _HomeScreenState extends State<HomeScreen> {
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 16),
                           ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PostListScreen(
+                                  repository: DependencyProvider.of(context)
+                                      .postRepository,
+                                ),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.article),
+                          label: const Text('Lihat Daftar Post'),
                         ),
                       ),
                     ],

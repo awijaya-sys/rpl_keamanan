@@ -63,4 +63,51 @@ class Validators {
     }
     return null;
   }
+
+  // ---------------- Latihan 3: validasi tambahan ----------------
+
+  /// Memvalidasi nomor telepon (hanya angka, 10-13 digit).
+  ///
+  /// Mengembalikan pesan error jika tidak valid, atau `null` jika valid.
+  static String? validatePhone(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Nomor telepon tidak boleh kosong';
+    }
+    if (!RegExp(r'^[0-9]{10,13}$').hasMatch(value.trim())) {
+      return 'Nomor telepon harus 10-13 digit angka';
+    }
+    return null;
+  }
+
+  /// Memvalidasi URL (harus diawali http:// atau https://).
+  static String? validateUrl(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'URL tidak boleh kosong';
+    }
+    if (!RegExp(r'^https?://[^\s/$.?#].[^\s]*$').hasMatch(value.trim())) {
+      return 'URL harus diawali http:// atau https://';
+    }
+    return null;
+  }
+
+  /// Memvalidasi password: minimal 8 karakter, mengandung huruf kapital,
+  /// angka, dan simbol.
+  static String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password tidak boleh kosong';
+    }
+    if (value.length < 8) {
+      return 'Password minimal 8 karakter';
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(value)) {
+      return 'Password harus mengandung huruf kapital';
+    }
+    if (!RegExp(r'[0-9]').hasMatch(value)) {
+      return 'Password harus mengandung angka';
+    }
+    if (!RegExp(r'[^A-Za-z0-9]').hasMatch(value)) {
+      return 'Password harus mengandung simbol';
+    }
+    return null;
+  }
 }
